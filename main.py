@@ -26,43 +26,60 @@ HEADERS = {
 # CHECK STOCK FUNCTION
 # --------------------
 
+# def check_stock():
+#     try:
+#         # Make the request to Target's API
+#         response = requests.get(URL, headers=HEADERS)
+
+#         # request fail, print the error code and stop
+#         if response.status_code != 200:
+#             print("Request failed with status code: " + str(response.status_code))
+#             return
+
+#         # convert the response into a Python dict 
+#         data = response.json()
+
+#         # Dig into the JSON to find the stock status
+#         # Each [] means "go into this key"
+#         product = data["data"]["product"]
+#         title = product["item"]["product_description"]["title"]
+#         fulfillment = product["fulfillment"]
+
+#         # Check online stock status
+#         online_status = fulfillment["shipping_options"]["availability_status"]
+
+#         # Check in-store stock status (if available)
+#         store_status = "UNKNOWN"
+#         if "store_options" in fulfillment:
+#             store_status = fulfillment["store_options"][0]["availability_status"]
+
+#         print("Product: " + title)
+#         print("Online status: " + online_status)
+#         print("In-store status: " + store_status)
+#         print("---")
+
+#         if online_status == "IN_STOCK" or store_status == "IN_STOCK":
+#             print("*** IN STOCK! ***")
+
+#     except Exception as e:
+#         #print the error and keep going
+#         print("Something went wrong: " + str(e))
+
 def check_stock():
     try:
-        # Make the request to Target's API
         response = requests.get(URL, headers=HEADERS)
 
-        # request fail, print the error code and stop
         if response.status_code != 200:
             print("Request failed with status code: " + str(response.status_code))
             return
 
-        # convert the response into a Python dict 
         data = response.json()
 
-        # Dig into the JSON to find the stock status
-        # Each [] means "go into this key"
-        product = data["data"]["product"]
-        title = product["item"]["product_description"]["title"]
-        fulfillment = product["fulfillment"]
-
-        # Check online stock status
-        online_status = fulfillment["shipping_options"]["availability_status"]
-
-        # Check in-store stock status (if available)
-        store_status = "UNKNOWN"
-        if "store_options" in fulfillment:
-            store_status = fulfillment["store_options"][0]["availability_status"]
-
-        print("Product: " + title)
-        print("Online status: " + online_status)
-        print("In-store status: " + store_status)
+        # Just print everything so we can see the structure
+        print(data)
         print("---")
 
-        if online_status == "IN_STOCK" or store_status == "IN_STOCK":
-            print("*** IN STOCK! ***")
-
     except Exception as e:
-        #print the error and keep going
         print("Something went wrong: " + str(e))
 
 # --------------------
